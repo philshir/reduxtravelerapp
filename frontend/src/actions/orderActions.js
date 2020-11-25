@@ -13,9 +13,6 @@ import {
   ORDER_LIST_MY_REQUEST,
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
-  ORDER_LIST_FAIL,
-  ORDER_LIST_SUCCESS,
-  ORDER_LIST_REQUEST,
 } from '../constants/orderConstants'
 import { logout } from './userActions'
 
