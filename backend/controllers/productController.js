@@ -5,6 +5,8 @@ import Product from '../models/productModel.js'
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
+  const pageSize = 10
+  const page = Number(req.query.pageNumber) || 1
   const keyword = req.query.keyword
   ? {
       name: {
@@ -12,11 +14,14 @@ const getProducts = asyncHandler(async (req, res) => {
         $options: 'i',
       },
     }
-  : {}
-
-  const products = await Product.find({ ...keyword })
+    : {}
   
-  res.json(products)
+const count = await Product.countDocuments({ ...keyword })
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page -1))
+  
+  res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc    Fetch single product
@@ -142,4 +147,21 @@ const createProductReview = asyncHandler(async (req, res) => {
   }
 })
 
-export { getProducts, getProductById, deleteProduct, createProduct, updateProduct, createProductReview }
+// @desc    Get top rated products
+// @route   GET /api/productstop
+// @access  ublic
+const getTopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3)
+
+  res.json(products)
+})
+
+export {
+  getProducts,
+  getProductById,
+  deleteProduct,
+  createProduct,
+  updateProduct,
+  createProductReview,
+  getTopProducts,
+}
