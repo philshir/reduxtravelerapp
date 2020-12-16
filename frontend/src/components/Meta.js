@@ -12,9 +12,9 @@ const Meta = ({ title, description, keywords }) => {
 }
 
 Meta.defaultProps = {
-    title: 'Welcome to Proshop',
-    description: 'We sell the best products for cheap',
-    keywords: 'electronics, buy electronics, cheap electronics',
+    title: 'Redux Traveler',
+    description: 'Show your love and support with the hottest Reduxtraveler swag and gear!',
+    keywords: 'swag, hiking gear, travel gear, travel accessories',
 }
 
 export default Meta
